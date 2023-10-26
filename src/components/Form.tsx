@@ -1,10 +1,22 @@
-import { useState } from "react";
-import { IMovie } from "../type";
+import React, { useState } from "react";
 const Form = () => {
-  const [movie, setMovie] = useState<IMovie>();
+  const [movie, setMovie] = useState({
+    title: "",
+    year: 0,
+  });
 
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setMovie({ ...movie, [name]: value });
+    console.log(movie);
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log(movie);
+  }
   return (
-    <form>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <div className="form-input">
         <label>
           Movie Title
@@ -13,6 +25,7 @@ const Form = () => {
             id="title"
             name="title"
             placeholder="Enter movie name"
+            onChange={(e) => handleChange(e)}
             required
           />
         </label>
@@ -24,10 +37,14 @@ const Form = () => {
             id="year"
             name="year"
             placeholder="Enter year"
+            onChange={(e) => handleChange(e)}
             required
           />
         </label>
       </div>
+      <button type="submit" className="form-input">
+        Update
+      </button>
     </form>
   );
 };

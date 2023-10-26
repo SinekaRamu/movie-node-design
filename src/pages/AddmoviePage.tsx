@@ -3,17 +3,16 @@ import Form from "../components/Form";
 import { useNavigate } from "react-router-dom";
 import { addMovie } from "../services/api";
 import { useState } from "react";
-import { IMovie } from "../type";
 
 const AddmoviePage = () => {
   const navigate = useNavigate();
-  const [movie, setMovie] = useState<IMovie>();
+  const [movie, setMovie] = useState();
 
   async function add() {
     try {
       const moviePayload = {
         title: "Leo",
-        //year: 2023,
+        year: 2023,
       };
       const res = await addMovie(moviePayload);
       console.log(res);

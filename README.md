@@ -63,3 +63,5 @@ Home page has a title and list of card with movie title and release year.
 
 - Each moviecard has two button edit and delete.
 - These button calls the api PUT and DELETE function. these button emoji are taken from [here](https://emojipedia.org/)
+
+## Changes made in Home

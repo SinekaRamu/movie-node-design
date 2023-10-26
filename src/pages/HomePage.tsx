@@ -44,6 +44,18 @@ const HomePage = () => {
         <Loading />
       ) : (
         <div className="gridBox">
+          <article className="movie-card">
+            <h3>Title: Avenger Endgame</h3>
+            <h4>Year: 2020</h4>
+            <div className="action">
+              <Link to="/edit" role="button">
+                📝
+              </Link>
+              <Link to="/EditPage" role="button">
+                🚮
+              </Link>
+            </div>
+          </article>
           {movies.map((d, i) => (
             <article className="movie-card" key={i}>
               <h3>{d.title}</h3>
