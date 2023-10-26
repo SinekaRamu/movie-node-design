@@ -65,3 +65,6 @@ Home page has a title and list of card with movie title and release year.
 - These button calls the api PUT and DELETE function. these button emoji are taken from [here](https://emojipedia.org/)
 
 ## Changes made in Home
+
+- added a form type editPage or addPage
+- form button change with terrinay operator

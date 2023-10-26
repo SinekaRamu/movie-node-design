@@ -25,10 +25,10 @@ const AddmoviePage = () => {
   return (
     <Layout title="movieForm">
       <h1>Add Movie</h1>
-      <Form />
-      <button onClick={() => add()} className="form-input">
+      <Form type="add" />
+      {/* <button onClick={() => add()} className="form-input">
         Add
-      </button>
+      </button> */}
     </Layout>
   );
 };

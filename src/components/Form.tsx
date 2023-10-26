@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-const Form = () => {
+
+interface IForm {
+  type: string;
+}
+const Form: React.FC<IForm> = ({ type }) => {
   const [movie, setMovie] = useState({
     title: "",
     year: 0,
@@ -42,9 +46,19 @@ const Form = () => {
           />
         </label>
       </div>
-      <button type="submit" className="form-input">
-        Update
-      </button>
+      {type == "edit" ? (
+        <>
+          <button type="submit" className="form-input">
+            Update
+          </button>
+        </>
+      ) : (
+        <>
+          <button type="submit" className="form-input">
+            add
+          </button>
+        </>
+      )}
     </form>
   );
 };

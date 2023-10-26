@@ -17,3 +17,5 @@ const MovieCard: React.FC<IMovie> = (d) => {
     </>
   );
 };
+
+export default MovieCard;
