@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IMovie } from "../type";
 
 interface IForm {
   type: string;
@@ -8,6 +9,7 @@ const Form: React.FC<IForm> = ({ type }) => {
     title: "",
     year: 0,
   });
+  const [data, setData] = useState<IMovie>();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
