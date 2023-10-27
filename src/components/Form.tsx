@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { IMovie } from "../type";
+import { Link } from "react-router-dom";
 
 interface IForm {
-  type: string;
+  type?: string;
+  getMovie?: IMovie;
+  addingMovie?: (m: IMovie) => void;
 }
-const Form: React.FC<IForm> = ({ type }) => {
-  const [movie, setMovie] = useState({
-    title: "",
-    year: 0,
-  });
-  const [data, setData] = useState<IMovie>();
+const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
+  const [movie, setMovie] = useState(
+    getMovie || {
+      title: "",
+      year: 0,
+    }
+  );
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -19,7 +23,7 @@ const Form: React.FC<IForm> = ({ type }) => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(movie);
+    if (addingMovie) addingMovie(movie);
   }
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
@@ -48,17 +52,27 @@ const Form: React.FC<IForm> = ({ type }) => {
           />
         </label>
       </div>
-      {type == "edit" ? (
+      {getMovie ? (
         <>
-          <button type="submit" className="form-input">
-            Update
-          </button>
+          <div className="form-input home-bar">
+            <button type="submit" className="form-btn">
+              Update
+            </button>
+            <Link to="/" role="button" className="form-btn">
+              Cancel
+            </Link>
+          </div>
         </>
       ) : (
         <>
-          <button type="submit" className="form-input">
-            add
-          </button>
+          <div className="form-input home-bar">
+            <button type="submit" className="form-btn">
+              Add
+            </button>
+            <Link to="/" role="button" className="form-btn">
+              Back
+            </Link>
+          </div>
         </>
       )}
     </form>

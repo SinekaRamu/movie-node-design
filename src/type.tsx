@@ -1,6 +1,5 @@
 export interface IMovie {
-  id: number;
+  id?: number;
   title: string;
   year: number;
-  isEdit?: boolean;
 }
