@@ -2,13 +2,19 @@ import { useEffect, useState } from "react";
 import { IMovie } from "../type";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
-import { getMovies } from "../services/api";
+import { getMovies, deleteMovie } from "../services/api";
 import Loading from "../components/Loading";
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const [movies, setMovies] = useState<IMovie[]>([]);
+  const [movies, setMovies] = useState<IMovie[]>([
+    {
+      id: 124,
+      title: "gilli",
+      year: 2002,
+    },
+  ]);
 
   useEffect(() => {
     async function getMoviesFromAPI() {
@@ -56,12 +62,12 @@ const HomePage = () => {
               </Link>
             </div>
           </article>
-          {movies.map((d, i) => (
+          {movies.map((m, i) => (
             <article className="movie-card" key={i}>
-              <h3>{d.title}</h3>
-              <h4>{d.year}</h4>
+              <h3>{m.title}</h3>
+              <h4>{m.year}</h4>
               <div className="action">
-                <Link to="/edit" role="button">
+                <Link to={`/edit/${m.id}`} role="button">
                   📝
                 </Link>
                 <Link to="/EditPage" role="button">

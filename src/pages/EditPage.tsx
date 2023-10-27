@@ -3,6 +3,7 @@ import Form from "../components/Form";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { IMovie } from "../type";
+import { getMovie, updateMovie } from "../services/api";
 
 const EditPage = () => {
   const { id } = useParams();
@@ -28,13 +29,21 @@ const EditPage = () => {
     getMoviesFromAPI(parseInt(id));
   }, [id]);
 
+  const handleUpdate = async (movie: IMovie) => {
+    try {
+      if (id) {
+        await updateMovie(movie, parseInt(id));
+      }
+      navigate("/");
+    } catch (error) {
+      console.error("Error updating movie:", error);
+    }
+  };
+
   return (
     <Layout title="edit">
       <h1>Editing movie</h1>
-      <Form type="edit" />
-      <button type="submit" className="form-input">
-        Save
-      </button>
+      <Form type="edit" getMovie={movie} addingMovie={handleUpdate} />
     </Layout>
   );
 };
