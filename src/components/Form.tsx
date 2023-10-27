@@ -1,78 +1,54 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IMovie } from "../type";
-import { Link } from "react-router-dom";
-
+import FormInputs from "./FormInputs";
+import FormButtons from "./FormButtons";
 interface IForm {
-  type?: string;
-  getMovie?: IMovie;
+  type: string;
   addingMovie?: (m: IMovie) => void;
+  getMovie?: IMovie;
 }
-const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
-  const [movie, setMovie] = useState(
-    getMovie || {
-      title: "",
-      year: 0,
-    }
-  );
 
+const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
+  const [movie, setMovie] = useState<IMovie>(
+    getMovie || { title: "", year: 0 }
+  );
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setMovie({ ...movie, [name]: value });
-    console.log(movie);
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (addingMovie) addingMovie(movie);
+    if (addingMovie) {
+      addingMovie(movie);
+    }
   }
+
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      <div className="form-input">
-        <label>
-          Movie Title
-          <input
-            type="text"
-            id="title"
-            name="title"
-            placeholder="Enter movie name"
-            onChange={(e) => handleChange(e)}
-            required
-          />
-        </label>
-
-        <label>
-          Release Year
-          <input
-            type="text"
-            id="year"
-            name="year"
-            placeholder="Enter year"
-            onChange={(e) => handleChange(e)}
-            required
-          />
-        </label>
-      </div>
-      {getMovie ? (
+      {movie && (
         <>
-          <div className="form-input home-bar">
-            <button type="submit" className="form-btn">
-              Update
-            </button>
-            <Link to="/" role="button" className="form-btn">
-              Cancel
-            </Link>
+          <div className="form-input">
+            <FormInputs
+              label="Enter Movie Title"
+              type="text"
+              name="title"
+              value={movie.title}
+              handleChange={handleChange}
+            />
+            <FormInputs
+              label="Enter Release Year"
+              type="number"
+              name="year"
+              value={movie.year}
+              handleChange={handleChange}
+            />
           </div>
-        </>
-      ) : (
-        <>
-          <div className="form-input home-bar">
-            <button type="submit" className="form-btn">
-              Add
-            </button>
-            <Link to="/" role="button" className="form-btn">
-              Back
-            </Link>
-          </div>
+          {type == "edit" ? (
+            <FormButtons btn1="Update" btn2="Cancel" />
+          ) : (
+            <FormButtons btn1="add" btn2="Back" />
+          )}
         </>
       )}
     </form>
